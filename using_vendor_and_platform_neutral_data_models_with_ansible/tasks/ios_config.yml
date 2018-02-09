@@ -1,0 +1,4 @@
+---
+  - name: "PUSH CONFIGS TO AN IOS DEVICE"
+    ios_config:
+      src: "outputs/{{ inventory_hostname }}.cfg"

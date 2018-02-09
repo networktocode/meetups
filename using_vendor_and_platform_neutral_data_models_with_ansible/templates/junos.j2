@@ -1,0 +1,11 @@
+set routing-options router-id {{ bgp['id'] }}
+set routing-options autonomous-system {{ bgp['asn'] }}
+set protocols bgp export allow-bgp
+{% for neighbor in bgp['neighbors'] %}
+set protocols bgp group {{ neighbor['description'] }} type internal
+set protocols bgp group {{ neighbor['description'] }} peer-as {{ neighbor['asn'] }}
+set protocols bgp group {{ neighbor['description'] }} neighbor {{ neighbor['ip'] }}
+{% endfor %}
+{% for network in bgp['networks'] %}
+set policy-options policy-statement allow-bgp term 1 from route-filter {{ network }} prefix-length-range /{{ network | ipaddr('prefix') }}-/{{ network | ipaddr('prefix') }}
+{% endfor %}

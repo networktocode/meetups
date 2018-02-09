@@ -1,0 +1,57 @@
+---
+
+#ansible-playbook -i inventory backup.yml
+
+- name: "BACKUP CONFIGS"
+  hosts: all
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: "GET CONFIGS FROM AN IOS DEVICE"
+    ios_command:
+      commands: "show run"
+    when: "os == 'ios'"
+    register: "config"
+
+  - name: "COPY TO BACKUP"
+    copy:
+      content: "{{ config['stdout'][0] }}"
+      dest: "original/{{ inventory_hostname }}.cfg"
+    when: "os == 'ios'"
+
+  - name: "GET CONFIGS FROM AN IOSXR DEVICE"
+    iosxr_command:
+      commands: "show run"
+    when: "os == 'iosxr'"
+    register: "config"
+
+  - name: "COPY TO BACKUP"
+    copy:
+      content: "{{ config['stdout'][0] }}"
+      dest: "original/{{ inventory_hostname }}.cfg"
+    when: "os == 'iosxr'"
+
+  - name: "GET CONFIGS FROM AN NXOS DEVICE"
+    nxos_command:
+      commands: "show run"
+    when: "os == 'nxos'"
+    register: "config"
+
+  - name: "COPY TO BACKUP"
+    copy:
+      content: "{{ config['stdout'][0] }}"
+      dest: "original/{{ inventory_hostname }}.cfg"
+    when: "os == 'nxos'"
+
+  - name: "GET CONFIGS FROM AN JUNOS DEVICE"
+    junos_command:
+      commands: "show configuration"
+    when: "os == 'junos'"
+    register: "config"
+
+  - name: "COPY TO BACKUP"
+    copy:
+      content: "{{ config['stdout'][0] }}"
+      dest: "original/{{ inventory_hostname }}.cfg"
+    when: "os == 'junos'"

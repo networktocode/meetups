@@ -1,0 +1,15 @@
+router bgp {{ bgp['asn'] }}
+ bgp router-id {{ bgp['id'] }}
+ bgp log-neighbor-changes
+{% for neighbor in bgp['neighbors'] %}
+ neighbor {{ neighbor['ip'] }} remote-as {{ neighbor['asn'] }}
+ neighbor {{ neighbor['ip'] }} description {{ neighbor['description'] }}
+{% endfor %}
+ address-family ipv4
+{% for net in bgp['networks'] %}
+  network {{ net | ipaddr('network') }} mask {{ net | ipaddr('netmask') }}
+{% endfor %}
+{% for neighbor in bgp['neighbors'] %}
+  neighbor {{ neighbor['ip'] }} activate
+{% endfor %}
+ exit-address-family

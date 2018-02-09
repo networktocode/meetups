@@ -1,0 +1,5 @@
+---
+  - name: "PUSH CONFIGS TO A JUNOS DEVICE"
+    junos_config:
+      src: "outputs/{{ inventory_hostname }}.cfg"
+      src_format: "set"

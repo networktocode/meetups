@@ -1,0 +1,9 @@
+nyc-rt01 ansible_host=172.16.1.101 ansible_network_os=ios   ansible_connection=network_cli
+nyc-rt02 ansible_host=172.16.1.102 ansible_network_os=nxos  ansible_connection=network_cli
+nyc-rt03 ansible_host=172.16.1.103 ansible_network_os=iosxr ansible_connection=network_cli
+nyc-rt04 ansible_host=172.16.1.104 ansible_network_os=junos ansible_connection=netconf
+
+[all:vars]
+ansible_user=ntc
+ansible_ssh_user=ntc
+ansible_ssh_pass=ntc123

@@ -1,0 +1,11 @@
+router bgp {{ bgp['asn'] }}
+  router-id {{ bgp['id'] }}
+  address-family ipv4 unicast
+{% for net in bgp['networks'] %}
+    network {{ net }}
+{% endfor %}
+{% for neighbor in bgp['neighbors'] %}
+  neighbor {{ neighbor['ip'] }} remote-as {{ neighbor['asn'] }}
+    description {{ neighbor['description'] }}
+    address-family ipv4 unicast
+{% endfor %}
