@@ -1,0 +1,4 @@
+---
+  - name: "PUSH CONFIGS TO AN IOSXR DEVICE"
+    iosxr_config:
+      src: "outputs/{{ inventory_hostname }}.cfg"

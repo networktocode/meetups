@@ -1,0 +1,4 @@
+---
+  - name: "PUSH CONFIGS TO A NXOS DEVICE"
+    nxos_config:
+      src: "outputs/{{ inventory_hostname }}.cfg"
